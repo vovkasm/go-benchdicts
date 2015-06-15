@@ -30,6 +30,10 @@ func TestDict2(t *testing.T) {
 	d := dicts.NewDict2()
 	testDict(t, d)
 }
+func TestDict3(t *testing.T) {
+	d := dicts.NewDict3()
+	testDict(t, d)
+}
 
 var result int
 var resultOk bool
@@ -37,8 +41,11 @@ var resultOk bool
 var sKeys = []dicts.Key{
 	dicts.Key{"aaa", "bbb", "ccc"},
 	dicts.Key{"bbb", "ccc", "dddd"},
+	dicts.Key{"bbb", "ccc", "xxxxxxx"},
+	dicts.Key{"bbb", "cccddd", "dddd"},
+	dicts.Key{"bbbaaa", "ccc", "dddd"},
 }
-var sVals = []int{5, 6}
+var sVals = []int{1, 2, 3, 4, 5}
 
 var ckeys = []dicts.Key{
 	dicts.Key{"aaa", "bbb", "ccc"},
@@ -62,5 +69,9 @@ func BenchmarkDict1(b *testing.B) {
 }
 func BenchmarkDict2(b *testing.B) {
 	d := dicts.NewDict2()
+	benchDict(b, d)
+}
+func BenchmarkDict3(b *testing.B) {
+	d := dicts.NewDict3()
 	benchDict(b, d)
 }

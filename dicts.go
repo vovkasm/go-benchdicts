@@ -4,6 +4,10 @@ type Key struct {
 	A, B, C string
 }
 
+func (k Key) StringKey() string {
+	return k.A + "|" + k.B + "|" + k.C
+}
+
 type Dict interface {
 	Set(k Key, v int)
 	Get(k Key) (int, bool)
@@ -54,5 +58,23 @@ func (d *Dict2) Set(k Key, v int) {
 
 func (d *Dict2) Get(k Key) (int, bool) {
 	v, ok := d.data[k.A][k.B][k.C]
+	return v, ok
+}
+
+type Dict3 struct {
+	data map[string]int
+}
+
+func NewDict3() Dict {
+	d := &Dict3{data: make(map[string]int, 0)}
+	return d
+}
+
+func (d *Dict3) Set(k Key, v int) {
+	d.data[k.StringKey()] = v
+}
+
+func (d *Dict3) Get(k Key) (int, bool) {
+	v, ok := d.data[k.StringKey()]
 	return v, ok
 }
